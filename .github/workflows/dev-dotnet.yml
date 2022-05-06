@@ -2,7 +2,7 @@ name: .NET
 
 on:
   push:
-    branches: [ main ]
+    branches: [ dev ]
 
 jobs:
   build:
@@ -27,4 +27,11 @@ jobs:
         tag: "1.1"
         body: New Release
         token: ${{ secrets.GITHUB_TOKEN }}
-        artifacts: "./UltimateApp/bin/Release/netcoreapp3.1/UltimateApp"     
+        artifacts: "./UltimateApp/bin/Release/netcoreapp3.1/UltimateApp"
+    - name: Publish Test
+      uses: dorny/test-reporter@v1
+      if: always()
+      with:
+        name: Test Results on dev
+        path: ./TestResults/*.trx
+        reporter: dotnet-trx
