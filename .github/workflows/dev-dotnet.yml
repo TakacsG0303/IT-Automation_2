@@ -2,7 +2,7 @@ name: .NET
 
 on:
   push:
-    branches: [ dev ]
+    branches: [ main ]
 
 jobs:
   build:
@@ -20,18 +20,11 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release --no-restore
     - name: Test
-      run: dotnet test --no-restore --verbosity normal --logger trx --results-directory "TestResults"
+      run: dotnet test --no-restore --verbosity normal
     - name: Create Release
-      uses: ncipollo/release-action@v1.10.0
+      uses: ncipollo/release-action@v1
       with:
         tag: "1.1"
         body: New Release
         token: ${{ secrets.GITHUB_TOKEN }}
-        artifacts: "./UltimateApp/bin/Release/netcoreapp3.1/UltimateApp"
-    - name: Publish Test
-      uses: dorny/test-reporter@v1
-      if: always()
-      with:
-        name: Test Results on dev
-        path: ./TestResults/*.trx
-        reporter: dotnet-trx
+        artifacts: "./UltimateApp/bin/Release/netcoreapp3.1/UltimateApp" 
