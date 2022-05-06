@@ -21,13 +21,6 @@ jobs:
       run: dotnet build --configuration Release --no-restore
     - name: Test
       run: dotnet test --no-restore --verbosity normal --logger trx --results-directory "TestResults"
-    - name: Create Release
-      uses: ncipollo/release-action@v1
-      with:
-        tag: "1.1"
-        body: New Release
-        token: ${{ secrets.GITHUB_TOKEN }}
-        artifacts: "./UltimateApp/bin/Release/netcoreapp3.1/UltimateApp" 
     - name: Publish Test
       uses: dorny/test-reporter@v1
       if: always()
