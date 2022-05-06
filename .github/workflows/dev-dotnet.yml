@@ -28,3 +28,5 @@ jobs:
         body: New Release
         token: ${{ secrets.GITHUB_TOKEN }}
         artifacts: "./UltimateApp/bin/Release/netcoreapp3.1/UltimateApp"
+        
+        
